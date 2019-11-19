@@ -100,17 +100,28 @@ string getPadString(string s, int max){
 }
 
 
-void OutputPairLine(ArtAndWord **pNoun,Word **pVerb,ArtAndWord **pONoun,int maxNounLen,int maxVerbLen,bool definitive){
+void OutputPairLine(ArtAndWord **pNoun,Word **pVerb,ArtAndWord **pONoun,int maxNounLen,int maxVerbLen,bool definitive,bool dative){
 	string aOut1,aOut2,engArticle1, engArticle2;
 	if (definitive){
 		aOut1 = (**pNoun).article;
-		aOut2 = (*pONoun)->getObjectArticle();
+		if (dative){
+			aOut2 = (*pONoun)->getDefDatObj();
+		} else {
+			aOut2 = (*pONoun)->getArtAccusative();
+		}
+		
 		engArticle1 = "the", engArticle2 = "the";
 	} else {
-		aOut1 = (*pNoun)->indefArticle;
-		aOut2 = (*pONoun)->getInDefArtObject();
-		engArticle1 = (*pNoun)->getEngIArt();
-		engArticle2 = (*pONoun)->getEngIArt();
+		if (dative){
+			aOut1 = (*pNoun)->getInDefArticle();
+			aOut2 =  (*pONoun)->getInDefDatObj();
+		} else {
+			aOut1 = (*pNoun)->indefArticle;
+			aOut2 = (*pONoun)->getInDefArtAccus();
+		}
+		
+		engArticle1 = (*pNoun)->engIDA;
+		engArticle2 = (*pONoun)->engIDA;
 	}
 	
 	string wOut1 = (*pNoun)->word;
@@ -129,14 +140,14 @@ void OutputPairLine(ArtAndWord **pNoun,Word **pVerb,ArtAndWord **pONoun,int maxN
 
 void PrepareOutputLines(int min, int max, int ranNNum,int ranVNum,int ranNONum,
 						ArtAndWord *nouns[],ArtAndWord *ONouns[],Word * verbs[],
-						int maxNounLen,int maxVerbLen,bool definitive){
+						int maxNounLen,int maxVerbLen,bool definitive,bool dative){
 
 	ArtAndWord **pNoun, **pONoun;	// pointer to pointers
 	Word **pVerb;
 	for (int i = 0; i < 7; i++){
 		ranNNum = getRandomNumber(min,max);
-		//cout << "ranNNum : " << ranNNum << " ";
-		pNoun = nouns;
+
+		pNoun = nouns;	// pointer set to first element of array
 		pVerb = verbs;
 		pONoun = ONouns;
 		if (max > 0){
@@ -146,11 +157,21 @@ void PrepareOutputLines(int min, int max, int ranNNum,int ranVNum,int ranNONum,
 		}
 		pNoun += ranNNum;
 		pONoun += ranNONum;
-		ranVNum = getRandomNumber(min,max);
+		if (dative){
+			ranVNum = 0;
+		} else {
+			ranVNum = getRandomNumber(min,max);
+		}
 		pVerb += ranVNum;
-		OutputPairLine(pNoun,pVerb,pONoun,maxNounLen,maxVerbLen,definitive);
+		OutputPairLine(pNoun,pVerb,pONoun,maxNounLen,maxVerbLen,definitive,dative);
 		removeFromArray(nouns,ranNNum);
-		removeFromArray(verbs,ranVNum);
+
+		if (dative){
+
+		} else {
+			removeFromArray(verbs,ranVNum);
+		}
+
 		removeFromArray(ONouns,ranNONum);
 		max--;
 		}
