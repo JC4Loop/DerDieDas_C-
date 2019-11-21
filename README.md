@@ -1,4 +1,4 @@
-#DerDieDas - Nominative - Accusative - Dative
+# DerDieDas - Nominative - Accusative - Dative
 
 A command line / terminal application displaying german sentences with the appropriate (the) article for each noun; english translation is displayed below each german sentence.
 Both main files show articles for definite nouns then indefinite nouns.
