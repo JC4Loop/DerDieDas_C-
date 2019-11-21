@@ -40,10 +40,10 @@ int main(){
 	bool definitive = true;
 	int min = 0, max = 6;
 
-	cout << "--- Nominative Definitive ---- Accusative Definit --------" << endl << endl;
+	cout << "--- Nominative Definite ---- Accusative Definite --------" << endl << endl;
 	PrepareOutputLines(min,max,ranNNum,ranVNum,ranNONum,nouns,ONouns,verbs,maxNounLen,maxVerbLen,definitive,false);
 
-	cout << "--- Nominative InDefinitive -- Accusative Indefinit-------" << endl << endl;
+	cout << "--- Nominative InDefinite -- Accusative Indefinite-------" << endl << endl;
 	PrepareOutputLines(min,max,ranNNum,ranVNum,ranNONum,nouns,ONouns,verbs,maxNounLen,maxVerbLen,false,false);
 	cout << endl;
 	return 0;

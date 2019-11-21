@@ -18,12 +18,6 @@ int main(){
 	ArtAndWord *ONouns[7];	// hold another array of nouns - used for object of sentence
 	copyArray(ONouns,nouns,7);
 
-/*
-	Word *prepositions[] = {	new Word("neben","next to")
-						
-					};
-					*/
-
 	Word *prepositions[] = {	new ISVerb("neben","next to")
 						
 					};
@@ -41,10 +35,10 @@ int main(){
 	
 	int min = 0, max = 6;
 
-	cout << "--- Nominative Definitive ---- Dative Definit --------" << endl << endl;
+	cout << "--- Nominative Definite ---- Dative Definite --------" << endl << endl;
 	PrepareOutputLines(min,max,ranNNum,ranPNum,ranNONum,nouns,ONouns,polyPrep,maxNounLen,maxPrepLen,true,true);
 
-	cout << "--- Nominative InDefinitive -- Dative Indefinit-------" << endl << endl;
+	cout << "--- Nominative InDefinite -- Dative Indefinite-------" << endl << endl;
 	PrepareOutputLines(min,max,ranNNum,ranPNum,ranNONum,nouns,ONouns,polyPrep,maxNounLen,maxPrepLen,false,true);
 	cout << endl;
 	
